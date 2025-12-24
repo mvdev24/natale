@@ -113,6 +113,19 @@ function startExperience() {
 
 const TYPE_SPEED = 45;
 
+// Shuffle buttons using Fisher-Yates
+function shuffleButtons(container) {
+  if (!container) return;
+  const buttons = Array.from(container.querySelectorAll("button"));
+  // Fisher-Yates shuffle on array
+  for (let i = buttons.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [buttons[i], buttons[j]] = [buttons[j], buttons[i]];
+  }
+  // Re-append in shuffled order
+  buttons.forEach(btn => container.appendChild(btn));
+}
+
 function typeText(el, textContent, speed = TYPE_SPEED) {
   return new Promise((resolve) => {
     if (!el) return resolve();
@@ -145,6 +158,7 @@ async function animateQuestion(questionEl) {
   }
   const options = questionEl.querySelector(".options");
   if (options) {
+    shuffleButtons(options);
     options.classList.remove("hidden");
     options.classList.add("fade-in");
   }
@@ -166,6 +180,7 @@ async function animateScreen(id) {
     if (questionEl) {
       const options = questionEl.querySelector(".options");
       if (options) {
+        shuffleButtons(options);
         options.classList.remove("hidden");
         options.classList.add("fade-in");
       }
