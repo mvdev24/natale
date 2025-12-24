@@ -1,93 +1,155 @@
 <!DOCTYPE html>
 <html lang="it">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Per te 🤍</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Per te 🤍</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <canvas id="snowCanvas"></canvas>
 
-<!-- ACCESSO SEGRETO -->
-<div id="login" class="screen active">
-  <h1>Solo per te 🤍</h1>
-  <p>Dove siamo stati insieme nel nostro viaggio più lontano?</p>
-  <input type="text" id="secretInput" placeholder="Scrivi qui..." />
-  <button onclick="checkSecret()">Entra</button>
-</div>
+    <!-- ACCESSO SEGRETO -->
+    <form id="secretForm">
+      <div id="login" class="screen active">
+        <h1 class="type-me">Solo per te 🤍</h1>
+        <p class="type-me">
+          Qual è il giorno e il mese del nostro anniversario?
+        </p>
+        <input type="text" id="secretInput" placeholder="Scrivi qui..." />
+        <button id="secretBtn" type="submit">Entra</button>
+        <p class="error hidden">Hmm… riprova 🤍</p>
+      </div>
+    </form>
 
-<!-- START -->
-<div id="start" class="screen">
-  <h1 id="typing"></h1>
-  <p>Ho preparato un piccolo percorso…</p>
-  <button onclick="startExperience()">Inizia ✨</button>
-</div>
+    <!-- START -->
+    <div id="start" class="screen">
+      <h1 class="type-me">Per questo Natale 🎄</h1>
+      <p class="type-me">ho preparato un piccolo percorso…</p>
+      <button onclick="startExperience()" class="hidden">Inizia ✨</button>
+    </div>
 
-<!-- STEP 1 -->
-<div id="step1" class="screen">
-  <h2>Prima sorpresa ✨</h2>
-  <p>In quale città vivremo una serata magica fatta di teatro e incantesimi?</p>
+    <!-- STEP 1 -->
+    <div id="step1" class="screen">
+      <h2 class="type-me">Prima sorpresa ✨</h2>
 
-  <button onclick="answer(1, false)">Roma</button>
-  <button onclick="answer(1, true)">Milano</button>
-  <button onclick="answer(1, false)">Londra</button>
+      <div class="question question-1">
+        <p class="type-me">Qual è il tuo film preferito?</p>
 
-  <p class="error hidden">Quasi… riprova 🤍</p>
+        <div class="options hidden">
+          <button onclick="answerStep(1, 1, false)">Notting Hill</button>
+          <button onclick="answerStep(1, 1, true)">Harry Potter</button>
+          <button onclick="answerStep(1, 1, false)">Il Padrino</button>
+        </div>
 
-  <div class="reward hidden">
-    <p>✨ Harry Potter a teatro ✨</p>
-    <a href="assets/hp.pdf" target="_blank">Apri il regalo</a>
-    <button onclick="goTo('step2')">Continua</button>
-  </div>
-</div>
+        <p class="error error-1 hidden">Hmm… riprova 🤍</p>
+      </div>
 
-<!-- STEP 2 -->
-<div id="step2" class="screen">
-  <h2>Seconda sorpresa 🧤</h2>
-  <p>Qual è il mezzo delle nostre piccole avventure quotidiane?</p>
+      <div class="question question-2 hidden">
+        <p class="type-me">Chi è il tuo personaggio preferito?</p>
 
-  <button onclick="answer(2, true)">Scooter</button>
-  <button onclick="answer(2, false)">Treno</button>
-  <button onclick="answer(2, false)">Aereo</button>
+        <div class="options hidden">
+          <button onclick="answerStep(1, 2, false)">Hermione</button>
+          <button onclick="answerStep(1, 2, true)">Piton</button>
+          <button onclick="answerStep(1, 2, false)">Dobby</button>
+        </div>
 
-  <p class="error hidden">Quasi… riprova 🤍</p>
+        <p class="error error-2 hidden">Hmm… riprova 🤍</p>
 
-  <div class="reward hidden">
-    <p>Così le mani saranno sempre al caldo 🤍</p>
-    <button onclick="goTo('step3')">Continua</button>
-  </div>
-</div>
+        <div class="reward hidden">
+          <p>27 Dicembre 2025 ore 20:30 - Teatro Arcimboldi di Milano</p>
+          <p>Harry Potter e i doni della morte - In Concerto 🎭</p>
+          <button onclick="goTo('step2')">Continua</button>
+        </div>
+      </div>
+    </div>
 
-<!-- STEP 3 -->
-<div id="step3" class="screen">
-  <h2>Ultima sorpresa 📸</h2>
-  <p>Qual è il viaggio che porterò sempre nel cuore con te?</p>
+    <!-- STEP 2 -->
+    <div id="step2" class="screen">
+      <h2 class="type-me">Seconda sorpresa 🎁</h2>
 
-  <button onclick="answer(3, false)">Islanda</button>
-  <button onclick="answer(3, true)">Giappone</button>
-  <button onclick="answer(3, false)">Spagna</button>
+      <div class="question question-1">
+        <p class="type-me">
+          Qual è il mezzo dal quale è impossibile separarti?
+        </p>
 
-  <p class="error hidden">Quasi… riprova 🤍</p>
+        <div class="options hidden">
+          <button onclick="answerStep(2, 1, true)">Scooter</button>
+          <button onclick="answerStep(2, 1, false)">Cavallo</button>
+          <button onclick="answerStep(2, 1, false)">Auto</button>
+        </div>
 
-  <div class="reward hidden">
-    <p>Un viaggio che è diventato parte di noi</p>
-    <img src="assets/giappone.jpg" class="photo" />
-    <button onclick="goTo('final')">Finale</button>
-  </div>
-</div>
+        <p class="error error-1 hidden">Hmm… riprova 🤍</p>
+      </div>
 
-<!-- FINALE -->
-<div id="final" class="screen">
-  <h1>Buon Natale amore mio 🎄🤍</h1>
-  <p>
-    Il regalo più grande non è quello che si scarta,<br/>
-    ma la vita che stiamo costruendo insieme.
-  </p>
-  <p class="firma">Matteo</p>
-</div>
+      <div class="question question-2 hidden">
+        <p class="type-me">Cosa rende le corse più piacevoli?</p>
 
-<audio id="music" src="music.mp3" loop></audio>
+        <div class="options hidden">
+          <button onclick="answerStep(2, 2, false)">Musica</button>
+          <button onclick="answerStep(2, 2, true)">Mani calde</button>
+          <button onclick="answerStep(2, 2, false)">Caffè</button>
+        </div>
 
-<script src="script.js"></script>
-</body>
+        <p class="error error-2 hidden">Hmm… riprova 🤍</p>
+
+        <div class="reward hidden">
+          <p>Così le mani saranno sempre al caldo 🧤🔥</p>
+          <button onclick="goTo('step3')">Continua</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div id="step3" class="screen">
+      <h2 class="type-me">Ultima sorpresa 🎅🏻</h2>
+
+      <div class="question question-1">
+        <p class="type-me">Qual è il viaggio dove hai mangiato di più?</p>
+
+        <div class="options hidden">
+          <button onclick="answerStep(3, 1, false)">Amsterdam</button>
+          <button onclick="answerStep(3, 1, false)">Perù</button>
+          <button onclick="answerStep(3, 1, true)">Giappone</button>
+        </div>
+
+        <p class="error error-1 hidden">Hmm… riprova 🤍</p>
+      </div>
+
+      <div class="question question-2 hidden">
+        <p class="type-me">Quante foto sono state fatte in quel viaggio?</p>
+
+        <div class="options hidden">
+          <button onclick="answerStep(3, 2, false)">1.234</button>
+          <button onclick="answerStep(3, 2, true)">1.506</button>
+          <button onclick="answerStep(3, 2, false)">1.789</button>
+        </div>
+
+        <p class="error error-2 hidden">Hmm… riprova 🤍</p>
+
+        <div class="reward hidden">
+          <p>
+            Un piccolo ricordo fotografico dei nostri momenti più belli in
+            Giappone 📸
+          </p>
+          <button onclick="goTo('final')">Finale</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FINALE -->
+    <div id="final" class="screen">
+      <h1 class="type-me">Buon Natale amore mio 🎄🤍</h1>
+      <p class="type-me">
+        Il regalo più grande non è quello che si scarta,<br />
+        ma ciò che stiamo costruendo insieme.
+      </p>
+      <p class="type-me"><span class="firma">Tuo Matteo</span> 😊</p>
+    </div>
+
+    <audio id="music" src="assets/music.mp3" loop></audio>
+    <audio id="laugh" src="assets/babbo_natale.mp3"></audio>
+
+    <script src="script.js"></script>
+  </body>
 </html>

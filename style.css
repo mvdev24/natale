@@ -1,9 +1,22 @@
+:root {
+  --color-bg: #e6dfd6;
+  --color-text: #2f2a26;
+  --color-text-secondary: #5c3d2e;
+  --color-primary: #b83b5e;
+  --color-primary-hover: #9a304e;
+  --color-accent-green: #2f6f4e;
+  --color-accent-green-hover: #275c41;
+  --color-gold: #cc9d2f;
+  --color-error: #c2465b;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #f5f1ec;
-  color: #333;
+  background: var(--color-bg);
+  color: var(--color-text);
   text-align: center;
   padding: 30px;
+  position: relative;
 }
 
 .screen {
@@ -16,38 +29,120 @@ body {
 }
 
 h1, h2 {
+  font-size: 1.9rem;
   margin-bottom: 15px;
 }
 
+p {
+  font-size: 1.3rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 15px;
+}
+
+.type-me {
+  white-space: pre-line;
+  opacity: 0;
+}
+
+.visible-type {
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
 button {
-  margin: 10px;
-  padding: 12px 22px;
-  border: none;
+  padding: 12px 25px;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 1.2rem;
   border-radius: 22px;
-  background: #b83b5e;
-  color: white;
-  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.05s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+  background: var(--color-primary-hover);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
 }
 
 input {
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--color-primary);
+  width: 200px;
+  font-size: 1.2rem;
   margin-bottom: 10px;
+}
+
+input:focus-visible {
+  outline: none;
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 3px #cc9d2f33;
 }
 
 .reward {
   margin-top: 20px;
+  background: #ffffffcc;
+  border: 1px solid #cc9d2f33;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  display: grid;
+  gap: 12px;
+  align-items: center;
+  justify-items: center;
+  position: relative;
 }
 
-.hidden {
-  display: none;
+.hidden { display: none; }
+.options.hidden { display: none; }
+.options { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+
+.pop-in { animation: popIn 380ms ease; }
+@keyframes popIn {
+  0% { opacity: 0; transform: scale(0.95); }
+  60% { opacity: 1; transform: scale(1.02); }
+  100% { opacity: 1; transform: scale(1); }
 }
 
-.photo {
-  max-width: 80%;
-  border-radius: 12px;
-  margin-top: 15px;
+.fade-in { animation: fadeUp 0.35s ease; }
+
+
+/* Confetti canvas inside reward */
+.confetti-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ensure content is above confetti */
+.reward > *:not(.confetti-canvas) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Responsive layout for reward: stack on mobile, side-by-side on larger screens */
+@media (min-width: 720px) {
+  .reward {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "text"
+      "cta";
+    justify-items: center;
+  }
+  .reward p { grid-area: text; text-align: center; }
+  .reward button { grid-area: cta; }
 }
 
 .firma {
@@ -60,8 +155,49 @@ input {
   to { opacity: 1; }
 }
 
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .error {
-  color: #b83b5e;
+  color: var(--color-error);
+  font-size: 1.2rem;
   margin-top: 10px;
-  font-size: 14px;
+}
+
+canvas#snowCanvas {
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:-1;
+  pointer-events:none;
+}
+
+#login input, #login button {
+  display: block;
+  margin: 10px auto;
+}
+
+/* Bottoni nei reward in verde pino per micro-accento natalizio */
+.reward button {
+  background: var(--color-accent-green);
+}
+
+.reward button:hover {
+  background: var(--color-accent-green-hover);
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+.error.shake {
+  animation: shake 0.4s;
 }
