@@ -1,0 +1,67 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #f5f1ec;
+  color: #333;
+  text-align: center;
+  padding: 30px;
+}
+
+.screen {
+  display: none;
+  animation: fade 0.6s ease;
+}
+
+.screen.active {
+  display: block;
+}
+
+h1, h2 {
+  margin-bottom: 15px;
+}
+
+button {
+  margin: 10px;
+  padding: 12px 22px;
+  border: none;
+  border-radius: 22px;
+  background: #b83b5e;
+  color: white;
+  font-size: 16px;
+}
+
+input {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.reward {
+  margin-top: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.photo {
+  max-width: 80%;
+  border-radius: 12px;
+  margin-top: 15px;
+}
+
+.firma {
+  margin-top: 30px;
+  font-style: italic;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.error {
+  color: #b83b5e;
+  margin-top: 10px;
+  font-size: 14px;
+}
