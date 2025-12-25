@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Per mamma e papà 🤍</title>
+    <link rel="stylesheet" href="style.css?v=20251224" />
+  </head>
+  <body>
+    <canvas id="snowCanvas"></canvas>
+
+    <!-- ACCESSO SEGRETO -->
+    <form id="secretForm">
+      <div id="login" class="screen active">
+        <h1 class="type-me">Solo per voi 🤍</h1>
+        <p class="type-me">Qual è il vostro figlio preferito?</p>
+        <input type="text" id="secretInput" placeholder="Scrivi qui..." />
+        <button id="secretBtn" type="submit">Entra</button>
+        <p class="error hidden">Hmm… riprova 🎅🏻</p>
+      </div>
+    </form>
+
+    <!-- START -->
+    <div id="start" class="screen">
+      <h1 class="type-me">Ciao mamma e papà 🎄</h1>
+      <p class="type-me">
+        Abbiamo preparato un piccolo percorso per un viaggio speciale…
+      </p>
+      <button onclick="startExperience()" class="hidden">Inizia ✨</button>
+    </div>
+
+    <!-- STEP 1 -->
+    <div id="step1" class="screen">
+      <h2 class="type-me">Con chi partireste?</h2>
+
+      <div class="question question-1">
+        <p class="type-me">
+          Se poteste partire domani, con chi vorreste condividere il viaggio? 
+        </p>
+
+        <div class="options hidden">
+          <button onclick="answerStep(1, 1, false)">Da soli 👫🏼</button>
+          <button onclick="answerStep(1, 1, false)">Con il gruppo RSA 👴🏻</button>
+          <button onclick="answerStep(1, 1, true)">Con Mirco e Matteo 👦🏻👦🏼</button>
+        </div>
+
+        <p class="error error-1 hidden">Hmm… riprova 🎅🏻</p>
+      </div>
+
+      <div class="question question-2 hidden">
+        <p class="type-me">Era l'unica risposta possibile, bravi 👏</p>
+
+        <div class="options hidden">
+          <button onclick="answerStep(1, 2, true)">Avanti!</button>
+        </div>
+
+        <p class="error error-2 hidden">Hmm… riprova 🎅🏻</p>
+
+        <div class="reward hidden">
+          <p>Un viaggio insieme sta per partire… ✨</p>
+          <button onclick="goTo('step2')">Continua</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div id="step2" class="screen">
+      <h2 class="type-me">Che tipo di viaggio?</h2>
+
+      <div class="question question-1">
+        <p class="type-me">Che tipo di viaggio vi piacerebbe di più?</p>
+
+        <div class="options hidden">
+          <button onclick="answerStep(2, 1, false)">Mare e relax 🏝️</button>
+          <button onclick="answerStep(2, 1, false)">
+            Cultura e passeggiate 🏛️
+          </button>
+          <button onclick="answerStep(2, 1, false)">Cibo e grassezza 🍔</button>
+          <button onclick="answerStep(2, 1, true)">Un mix di tutto ✈️</button>
+        </div>
+
+        <p class="error error-1 hidden">Hmm… riprova 🎅🏻</p>
+      </div>
+
+      <div class="question question-2 hidden">
+        <p class="type-me">
+          Magari senza girare ore per trovare un ristorante aperto come ad
+          Amsterdam 😅
+        </p>
+
+        <div class="options hidden">
+          <button onclick="answerStep(2, 2, true)">Andiamo avanti</button>
+        </div>
+
+        <p class="error error-2 hidden">Hmm… riprova 🎅🏻</p>
+
+        <div class="reward hidden">
+          <p>Allora scegliamo una capitale europea su misura… 🎯</p>
+          <button onclick="goTo('step3')">Continua</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div id="step3" class="screen">
+      <h2 class="type-me">Dove andremo?</h2>
+
+      <div class="question question-1">
+        <p class="type-me">Scegli la meta che ti ispira di più:</p>
+
+        <div class="options hidden">
+          <button onclick="answerStep(3, 1, true, 'Budapest')">Budapest</button>
+          <button onclick="answerStep(3, 1, true, 'Bucarest')">Bucarest</button>
+          <button onclick="answerStep(3, 1, true, 'Bruxelles')">
+            Bruxelles
+          </button>
+          <button onclick="answerStep(3, 1, true, 'Copenaghen')">
+            Copenaghen
+          </button>
+        </div>
+
+        <p class="error error-1 hidden">Hmm… riprova 🎅🏻</p>
+      </div>
+
+      <div class="question question-2 hidden">
+        <p class="type-me">
+          Ottima scelta, chissà però se sarà davvero questa la meta ⁉️<br />
+          E quando sarebbe perfetto?
+        </p>
+
+        <div class="options hidden">
+          <button onclick="answerStep(3, 2, false, 'subito')">Subito 🛫</button>
+          <button onclick="answerStep(3, 2, false, 'in primavera')">
+            In primavera 🌸
+          </button>
+          <button onclick="answerStep(3, 2, false, 'in estate')">
+            In estate ☀️
+          </button>
+          <button
+            onclick="answerStep(3, 2, true, 'quando saremo tutti liberi')"
+          >
+            Quando saremo tutti liberi ❤️
+          </button>
+        </div>
+
+        <p class="error error-2 hidden">Hmm… riprova 🎅🏻</p>
+
+        <div class="reward hidden">
+          <p>
+            La meta vi verrà comunicata entro 48h dalla partenza, lasciate un
+            vostro recapito per essere contattati 📱:
+          </p>
+          <input
+            type="text"
+            id="contactInput"
+            name="contact"
+            placeholder="Telefono o email"
+          />
+          <button onclick="finalizeTrip()">Finale</button>
+        </div>
+        
+        <p class="error error-contact hidden">
+          Inserite un recapito per continuare! 📱
+        </p>
+      </div>
+    </div>
+
+    <!-- FINALE -->
+    <div id="final" class="screen">
+      <h1 class="type-me">Si parte! 🎄✈️</h1>
+      <p class="type-me">
+        Destinazione: <span id="finalDest">la scegliamo insieme</span> ⁉️ verificheremo disponibilità biglietti ⁉️<br />
+        Periodo: <span id="finalWhen">quando saremo tutti liberi</span> ⁉️ per esempio Aprile/Maggio ⁉️<br />
+        Vi invieremo i biglietti del volo su:
+        <span id="finalContact">(aggiungete un contatto)</span><br />
+        Compagni di viaggio: Rena, Marghe, Mirco e Matte...
+      </p>
+      <p class="type-me">
+        Non è solo un viaggio: è tempo insieme, il miglior regalo che possiamo farci ❤️
+      </p>
+      <p class="type-me">
+        <span class="firma">Con amore, Matteo e Mirco</span> 😊
+      </p>
+    </div>
+
+    <audio id="music" src="assets/music.mp3" loop></audio>
+    <audio id="laugh" src="assets/babbo_natale.mp3"></audio>
+
+    <script src="script.js?v=20251224"></script>
+  </body>
+</html>
